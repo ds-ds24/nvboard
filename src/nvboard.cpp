@@ -60,7 +60,10 @@ void nvboard_init(int vga_clk_cycle) {
     // init SDL and SDL_image
     SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
     IMG_Init(IMG_INIT_PNG);
-
+    #if defined(__APPLE__)
+        SDL_SetHint(SDL_HINT_RENDER_DRIVER, "gpu");
+    #endif
+    
     main_window = SDL_CreateWindow("NVBoard " VERSION_STR, SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
     main_renderer = SDL_CreateRenderer(main_window, -1, 
